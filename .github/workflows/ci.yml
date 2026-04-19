@@ -1,0 +1,19 @@
+name: AI-Pipeline
+
+on: [push] # 只要你 push 代码，这套流水线就会自动启动
+
+jobs:
+  test:
+    runs-on: ubuntu-latest # 在 GitHub 的云端 Linux 服务器上运行
+    steps:
+      - uses: actions/checkout@v3 # 1. 把你的代码从仓库里拉下来
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11' # 2. 在云端安装 Python 3.11
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt # 3. 自动安装你的工具清单
+      - name: Run tests
+        run: |
+          python src/check_env.py # 4. 自动运行体检脚本
